@@ -12,4 +12,21 @@
     tools:context="com.example.jonathan.morpion.game_screen"
     tools:showIn="@layout/activity_game_screen">
 
+    <LinearLayout
+        android:id="@+id/game_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <GridLayout
+            android:id="@+id/game_grid"
+            android:rowCount="10"
+            android:columnCount="10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"></GridLayout>
+    </LinearLayout>
 </RelativeLayout>
