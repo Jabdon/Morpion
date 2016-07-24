@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import android.graphics.drawable.GradientDrawable;
 public class game_screen extends AppCompatActivity {
 
     public Square [][] gridview = new Square[10][10] ;
+    public static int current_player = 1 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class game_screen extends AppCompatActivity {
                 LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(90, 90);
                 sqr.setLayoutParams(sqrlayout);
                 sqr.setBackground(gd);
+                //listenerreturn false;
+
                 matrix[i][j] = sqr ;
 
                 // add it to grid view
@@ -61,5 +65,7 @@ public class game_screen extends AppCompatActivity {
         System.out.println("should be added to game screen");
 
     }
+
+
 
 }
