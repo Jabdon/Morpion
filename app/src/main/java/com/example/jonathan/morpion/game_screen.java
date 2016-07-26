@@ -1,6 +1,8 @@
 package com.example.jonathan.morpion;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -12,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +36,13 @@ public class game_screen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //draw grid in layout
         createGridsheet(gridview);
-        LinearLayout game_container = (LinearLayout) findViewById(R.id.game_container);
-        //game_container.setBackgroundColor(Color.BLACK);
+        userLabelInfo() ;
 
     }
 
-    // this method will populate button in grid section
+    /*
+    This method creates the gridlayout view and internal views
+     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void createGridsheet(Square[][] matrix){
         GridLayout layout = (GridLayout) findViewById(R.id.gridlayout_screen);
@@ -47,12 +51,13 @@ public class game_screen extends AppCompatActivity {
             for(int j = 0; j <matrix[i].length; j++ ){
                 Square sqr = new Square(this) ;
                 GradientDrawable gd = new GradientDrawable() ;
-                gd.setStroke(1, Color.BLACK);
-                LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(90, 90);
+                gd.setColor(Color.rgb(218, 218, 218));
+                GridLayout.LayoutParams sqrlayout = new GridLayout.LayoutParams();
+                sqrlayout.width =dpToPx(32) ;
+                sqrlayout.height =dpToPx(32) ;
+                sqrlayout.setMargins(dpToPx(2), dpToPx(2), dpToPx(2), dpToPx(2) );
                 sqr.setLayoutParams(sqrlayout);
                 sqr.setBackground(gd);
-                //listenerreturn false;
-
                 matrix[i][j] = sqr ;
 
                 // add it to grid view
@@ -61,9 +66,43 @@ public class game_screen extends AppCompatActivity {
             }
         }
 
+    }
+    /*
+    this method will take care of creating square/circle in front/before
+    of name labels
+    ONLY for USER vs USER
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void userLabelInfo(){
+        Square sqr_player_1 = new Square(this) ;
+        Square sqr_player_2 = new Square(this) ;
+        GradientDrawable gd = new GradientDrawable() ;
+        gd.setStroke(1, Color.BLACK);
+        LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(dpToPx(32), dpToPx(32));
+        sqrlayout.setMargins(dpToPx(20), dpToPx(2), dpToPx(10), dpToPx(2) );
+        sqr_player_1.setLayoutParams(sqrlayout);
+        sqr_player_2.setLayoutParams(sqrlayout);
+        sqr_player_1.setBackground(gd);
+        sqr_player_2.setBackground(gd) ;
+        LinearLayout player1_linearlayout_horizontal = (LinearLayout) findViewById(R.id.gamescreen_player1_container);
+        LinearLayout player2_linearlayout_horizontal = (LinearLayout) findViewById(R.id.gamescreen_player2_container);
+        player1_linearlayout_horizontal.addView(sqr_player_1, 0);
+        player2_linearlayout_horizontal.addView(sqr_player_2, 0);
+    }
 
-        System.out.println("should be added to game screen");
+    /*
+    helper method
+     */
 
+    public int dpToPx(int dp){
+        Resources r = this.getResources() ;
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                r.getDisplayMetrics()
+        );
+
+        return px ;
     }
 
 
