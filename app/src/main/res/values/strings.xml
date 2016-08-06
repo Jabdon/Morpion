@@ -6,4 +6,6 @@
     <string name="player1_name">Jonathan</string>
     <string name="player2_name">David</string>
     <string name="title_activity_game_screen">game_screen</string>
+    <string name="player_1"></string>
+    <string name="player_2"></string>
 </resources>

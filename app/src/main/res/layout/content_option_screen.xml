@@ -54,6 +54,7 @@
             <Button
                 style="@style/button_text"
                 android:layout_width="300dp"
+                android:onClick="userVsUserButtonHandler"
                 android:layout_height="80dp"
                 android:text="User vs User"
                 android:textSize="20dp"

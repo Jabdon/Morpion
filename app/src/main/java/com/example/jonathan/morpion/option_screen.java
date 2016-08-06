@@ -1,5 +1,6 @@
 package com.example.jonathan.morpion;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,5 +40,10 @@ public class option_screen extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void userVsUserButtonHandler(View view) {
+        Intent intent = new Intent(this, enter_name_screen.class);
+        startActivity(intent);
     }
 }

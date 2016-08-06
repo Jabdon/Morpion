@@ -24,12 +24,12 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.graphics.drawable.GradientDrawable;
+import android.widget.TextView;
 
 public class game_screen extends AppCompatActivity {
 
     public static Square [][] gridview = new Square[10][10] ;
     public static int current_player = 1 ;
-    public static Thread thread_morpion ;
     public static boolean is_morpion = false ;
 
     @Override
@@ -92,6 +92,10 @@ public class game_screen extends AppCompatActivity {
         LinearLayout player2_linearlayout_horizontal = (LinearLayout) findViewById(R.id.gamescreen_player2_container);
         player1_linearlayout_horizontal.addView(sqr_player_1, 0);
         player2_linearlayout_horizontal.addView(sqr_player_2, 0);
+        TextView player_name_1 = (TextView) findViewById(R.id.player_name_1) ;
+        TextView player_name_2 = (TextView) findViewById(R.id.player_name_2) ;
+        player_name_1.setText( enter_name_screen.name1);
+        player_name_2.setText(enter_name_screen.name2);
     }
 
     /*
