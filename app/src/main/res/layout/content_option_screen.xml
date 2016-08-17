@@ -47,6 +47,7 @@
                 android:layout_width="300dp"
                 android:layout_height="80dp"
                 android:text="User vs CPU"
+                android:onClick="userVsCPUButtonHandler"
                 android:textSize="20dp"
                 android:id="@+id/option_button_1"
                 android:layout_gravity="center_horizontal" />

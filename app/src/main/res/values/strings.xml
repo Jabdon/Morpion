@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Morpion</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_enter_name_screen">enter_name_screen</string>
+    <string name="title_activity_enter_name_screen">Enter Names</string>
     <string name="select_an_option">Select Option</string>
     <string name="player1_name">Jonathan</string>
     <string name="player2_name">David</string>
-    <string name="title_activity_game_screen">game_screen</string>
+    <string name="title_activity_game_screen">Morpion</string>
     <string name="player_1"></string>
     <string name="player_2"></string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class option_screen extends AppCompatActivity {
 
@@ -45,5 +46,10 @@ public class option_screen extends AppCompatActivity {
     public void userVsUserButtonHandler(View view) {
         Intent intent = new Intent(this, enter_name_screen.class);
         startActivity(intent);
+    }
+
+    public void userVsCPUButtonHandler(View view) {
+        Toast.makeText(option_screen.this, "This option is not available yet", Toast.LENGTH_LONG).show();
+
     }
 }
