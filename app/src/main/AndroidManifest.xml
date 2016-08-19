@@ -36,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jonathan.morpion.enter_name_screen" />
         </activity>
+        <activity
+            android:name=".game_screen_with_nav"
+            android:label="@string/title_activity_game_screen_with_nav"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

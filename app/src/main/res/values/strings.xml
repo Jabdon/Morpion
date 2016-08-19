@@ -8,4 +8,8 @@
     <string name="title_activity_game_screen">Morpion</string>
     <string name="player_1"></string>
     <string name="player_2"></string>
+    <string name="title_activity_game_screen_with_nav">game_screen_with_nav</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
