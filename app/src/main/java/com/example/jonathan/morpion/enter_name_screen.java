@@ -33,7 +33,7 @@ public class enter_name_screen extends AppCompatActivity {
         if(isNameAcceptable(nameEditText1) && isNameAcceptable(nameEditText2)){
             name1 = nameEditText1.getText() ;
             name2 = nameEditText2.getText() ;
-            Intent intent = new Intent(this, game_screen.class) ;
+            Intent intent = new Intent(this, game_screen_with_nav.class) ;
             startActivity(intent);
         }
     }

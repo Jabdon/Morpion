@@ -3,20 +3,12 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/restart"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Restart" />
-        <item
-            android:id="@+id/undo"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Undo" />
-        <item
-            android:id="@+id/quit"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Quit" />
+            android:id="@+id/game"
+            android:icon="@drawable/ic_action_game"
+            android:title="Game" />
         <item
             android:id="@+id/about"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_action_about"
             android:title="About" />
     </group>
 

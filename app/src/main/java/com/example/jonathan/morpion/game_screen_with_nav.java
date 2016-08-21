@@ -1,13 +1,17 @@
 package com.example.jonathan.morpion;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,7 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +35,11 @@ public class game_screen_with_nav extends AppCompatActivity
     public static Square [][] gridview = new Square[10][10] ;
     public static int current_player = 1 ;
     public static boolean is_morpion = false ;
+    public static LinearLayout player_view_1 ;
+    public static LinearLayout player_view_2 ;
+    public static ImageView animation_for_player1 ;
+    public static ImageView animation_for_player2 ;
+    public static Context context ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +48,17 @@ public class game_screen_with_nav extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //draw grid in layout
+        context = getApplicationContext();
+        player_view_1 = (LinearLayout) findViewById(R.id.gamescreen_player1_container);
+        player_view_2 = (LinearLayout) findViewById(R.id.gamescreen_player2_container);
         createGridsheet(gridview);
         userLabelInfo() ;
+        animation_for_player1 = new ImageView(this);
+        player_view_1.addView(animation_for_player1);
+        animation_for_player2 = new ImageView(this);
+        player_view_2.addView(animation_for_player2);
+        animationTurn(current_player);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,8 +95,38 @@ public class game_screen_with_nav extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.restart) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this) ;
+            dialog.setTitle("Restart");
+            dialog.setMessage("Are sure you want to restart the game");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do restart here
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            dialog.show() ;
+
+        }
+        else if (id == R.id.undo){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this) ;
+            dialog.setTitle("Undo");
+            dialog.setMessage("Are sure you want to undo");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Undo`
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            dialog.show() ;
         }
 
         return super.onOptionsItemSelected(item);
@@ -96,17 +138,9 @@ public class game_screen_with_nav extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.game) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }   else if (id == R.id.about) {
 
         }
 
@@ -124,8 +158,8 @@ public class game_screen_with_nav extends AppCompatActivity
                 GradientDrawable gd = new GradientDrawable() ;
                 gd.setColor(Color.rgb(218, 218, 218));
                 GridLayout.LayoutParams sqrlayout = new GridLayout.LayoutParams();
-                sqrlayout.width =dpToPx(32) ;
-                sqrlayout.height =dpToPx(32) ;
+                sqrlayout.width =dpToPx(28) ;
+                sqrlayout.height =dpToPx(28) ;
                 sqrlayout.setMargins(dpToPx(2), dpToPx(2), dpToPx(2), dpToPx(2) );
                 sqr.setLayoutParams(sqrlayout);
                 sqr.setBackground(gd);
@@ -149,8 +183,8 @@ public class game_screen_with_nav extends AppCompatActivity
         Square sqr_player_2 = new Square(this) ;
         GradientDrawable gd = new GradientDrawable() ;
         gd.setStroke(1, Color.BLACK);
-        LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(dpToPx(32), dpToPx(32));
-        sqrlayout.setMargins(dpToPx(20), dpToPx(2), dpToPx(10), dpToPx(2) );
+        LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(dpToPx(28), dpToPx(28));
+        sqrlayout.setMargins(dpToPx(0), dpToPx(2), dpToPx(10), dpToPx(2) );
         sqr_player_1.setLayoutParams(sqrlayout);
         sqr_player_2.setLayoutParams(sqrlayout);
         sqr_player_1.setBackground(gd);
@@ -189,6 +223,7 @@ public class game_screen_with_nav extends AppCompatActivity
 
     public static boolean isMorpion( final int row, final int column, final int side){
 
+        animationTurn(current_player);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -388,5 +423,34 @@ public class game_screen_with_nav extends AppCompatActivity
 
         return is_morpion ;
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void animationTurn(int player){
+        // create imageview programatically
+        animation_for_player1.setImageResource(R.drawable.ic_animation_game);
+        animation_for_player2.setImageResource(R.drawable.ic_animation_game);
+
+
+        //animation when is player one's turn
+        if(player == 1){
+            //remove from the other player
+            animation_for_player2.clearAnimation();
+            animation_for_player2.setVisibility(View.INVISIBLE);
+            //add it to here
+            animation_for_player1.setVisibility(View.VISIBLE);
+            Animation ani = AnimationUtils.loadAnimation(context,R.anim.blink );
+            animation_for_player1.startAnimation(ani);
+        }
+        else if(player ==2){
+            //remove from the other player
+            animation_for_player1.clearAnimation();
+            animation_for_player1.setVisibility(View.INVISIBLE);
+            //add it to here
+            animation_for_player2.setVisibility(View.VISIBLE);
+            Animation ani = AnimationUtils.loadAnimation(context,R.anim.blink );
+            animation_for_player2.startAnimation(ani);
+        }
+        //animation when is player two's turn
     }
 }

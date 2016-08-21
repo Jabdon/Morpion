@@ -1,14 +1,9 @@
 package com.example.jonathan.morpion;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.shapes.Shape;
-import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
-import com.example.jonathan.morpion.game_screen.* ;
 
 /**
  * Created by owner on 7/18/16.
@@ -55,21 +50,21 @@ public class Square extends View {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if(!this.is_tapped){
-            int player = game_screen.current_player ;
+            int player = game_screen_with_nav.current_player ;
             if(e.getAction() == MotionEvent.ACTION_DOWN){
                 if(player == 1){
                     this.setBackgroundColor(Color.BLUE);
                     this.setState(1);
-                    game_screen.current_player = 2 ;
+                    game_screen_with_nav.current_player = 2 ;
                 }
                 else{
                     this.setBackgroundColor(Color.GREEN);
                     this.setState(2);
-                    game_screen.current_player = 1 ;
+                    game_screen_with_nav.current_player = 1 ;
                 }
             }
             this.is_tapped = true ;
-                    game_screen.isMorpion(this.row_position, this.column_position, this.state);
+            game_screen_with_nav.isMorpion(this.row_position, this.column_position, this.state);
                     //System.out.println(game_screen.thread_morpion.getState());
 
 
