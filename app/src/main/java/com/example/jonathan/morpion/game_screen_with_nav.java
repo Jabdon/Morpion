@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -152,14 +153,24 @@ public class game_screen_with_nav extends AppCompatActivity
     protected void createGridsheet(Square[][] matrix){
         GridLayout layout = (GridLayout) findViewById(R.id.gridlayout_screen);
 
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        float screenWidth = convertPixelsToDp(metrics.widthPixels, this);
+        float screenHeight = convertPixelsToDp(metrics.widthPixels, this);
+        System.out.println ("The width of this screen is =  " + screenWidth);
+        System.out.println ("The width of this screen in px is =  " + metrics.widthPixels);
+        /*GridLayout.LayoutParams change_Grid_Layout = new GridLayout.LayoutParams();
+        change_Grid_Layout.height = (int) appropriateSquareSize(screenHeight) - 32 ;
+        layout.setLayoutParams(change_Grid_Layout);*/
+
         for(int i = 0; i < matrix.length ; i++){
             for(int j = 0; j <matrix[i].length; j++ ){
                 Square sqr = new Square(this, i, j) ;
                 GradientDrawable gd = new GradientDrawable() ;
                 gd.setColor(Color.rgb(218, 218, 218));
+
                 GridLayout.LayoutParams sqrlayout = new GridLayout.LayoutParams();
-                sqrlayout.width =dpToPx(28) ;
-                sqrlayout.height =dpToPx(28) ;
+                sqrlayout.width =dpToPx((int)appropriateSquareSize(screenWidth)) ;
+                sqrlayout.height =dpToPx((int)appropriateSquareSize (screenWidth)) ;
                 sqrlayout.setMargins(dpToPx(2), dpToPx(2), dpToPx(2), dpToPx(2) );
                 sqr.setLayoutParams(sqrlayout);
                 sqr.setBackground(gd);
@@ -452,5 +463,17 @@ public class game_screen_with_nav extends AppCompatActivity
             animation_for_player2.startAnimation(ani);
         }
         //animation when is player two's turn
+    }
+
+    public static float convertPixelsToDp(float px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp =  px / metrics.density ;
+        return dp;
+    }
+
+    public float appropriateSquareSize(float width){
+        float result = ((width -32) / 10) - 4 ;
+        return result ;
     }
 }
