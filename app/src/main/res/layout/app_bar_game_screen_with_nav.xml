@@ -21,10 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></FrameLayout>
+    <include layout="@layout/content_game_screen_with_nav" />
 
 
 </android.support.design.widget.CoordinatorLayout>

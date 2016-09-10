@@ -50,21 +50,21 @@ public class Square extends View {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if(!this.is_tapped){
-            int player = game_screen_with_nav.current_player ;
+            int player = Game_Fragment.current_player ;
             if(e.getAction() == MotionEvent.ACTION_DOWN){
                 if(player == 1){
                     this.setBackgroundColor(Color.BLUE);
                     this.setState(1);
-                    game_screen_with_nav.current_player = 2 ;
+                    Game_Fragment.current_player = 2 ;
                 }
                 else{
                     this.setBackgroundColor(Color.GREEN);
                     this.setState(2);
-                    game_screen_with_nav.current_player = 1 ;
+                    Game_Fragment.current_player = 1 ;
                 }
             }
             this.is_tapped = true ;
-            game_screen_with_nav.isMorpion(this.row_position, this.column_position, this.state);
+            Game_Fragment.isMorpion(this.row_position, this.column_position, this.state);
                     //System.out.println(game_screen.thread_morpion.getState());
 
 
