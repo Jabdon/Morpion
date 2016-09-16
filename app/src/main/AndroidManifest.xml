@@ -30,6 +30,7 @@
         <activity
             android:name=".game_screen_with_nav"
             android:label="@string/title_activity_game_screen_with_nav"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

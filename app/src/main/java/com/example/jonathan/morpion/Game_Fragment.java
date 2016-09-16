@@ -2,14 +2,19 @@ package com.example.jonathan.morpion;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +25,8 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -34,7 +41,8 @@ public class Game_Fragment extends Fragment {
     public static LinearLayout player_view_2 ;
     public static ImageView animation_for_player1 ;
     public static ImageView animation_for_player2 ;
-    public static Context context ;
+    public static Context context;
+    public static FragmentActivity activity ;
 
 
     public Game_Fragment() {
@@ -48,6 +56,7 @@ public class Game_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View root_fragment_game_view = inflater.inflate(R.layout.fragment_game_, container, false);
         context = this.getContext();
+        activity = this.getActivity() ;
         player_view_1 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player1_container);
         player_view_2 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player2_container);
         createGridsheet(gridview,root_fragment_game_view );
@@ -146,6 +155,9 @@ ONLY for USER vs USER
 
     public static boolean isMorpion( final int row, final int column, final int side){
 
+        //This array will keep track of the winning square pieces
+        final ArrayList<Square> winning_square = new ArrayList<Square>() ;
+
         animationTurn(current_player);
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -164,15 +176,19 @@ ONLY for USER vs USER
 
                 //code to check if it is aligned horizontally
                 if(!is_morpion){
+                    winning_square.clear(); // clear to make sure array doesn't contain any elements ---------- 1
                     count = 1;
+                    winning_square.add(gridview[row][column]); // add the first one by default --------------- 2
                     int column_step = column ;
                     while(not_done_checking_horizontally_right){
                         column_step++;
                         if(column_step <= 9 && gridview[row][column_step].state == side){
                             count++ ;
+                            winning_square.add(gridview[row][column_step]);// add squares to arraylist-------- 3
                             if(count == 5){
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 1");
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
                                 break ;
                             }
                         }
@@ -188,10 +204,12 @@ ONLY for USER vs USER
                         column_step-- ;
                         if(column_step >= 0 && gridview[row][column_step].state == side){
                             count++ ;
+                            winning_square.add(gridview[row][column_step]);// add squares to arraylist-------- 5
                             if(count == 5){
                                 // game is over, stop this process immediatelly
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 2");
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
                                 break ;
                             }
                         }
@@ -205,15 +223,19 @@ ONLY for USER vs USER
 
                 //code to check if it is aligned vertically
                 if(!is_morpion){
+                    winning_square.clear(); // clear to make sure array doesn't contain any elements ---------- 1
                     count = 1;
+                    winning_square.add(gridview[row][column]); // add the first one by default --------------- 2
                     int row_step = row ;
                     while(not_done_checking_vertically_up){
                         row_step++;
                         if(row_step <= 9 && gridview[row_step][column].state == side){
                             count++ ;
+                            winning_square.add(gridview[row_step][column]);// add squares to arraylist-------- 3
                             if(count == 5){
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 3");
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
                                 break ;
                             }
                         }
@@ -228,10 +250,12 @@ ONLY for USER vs USER
                         row_step-- ;
                         if(row_step >= 0 && gridview[row_step][column].state == side){
                             count++ ;
+                            winning_square.add(gridview[row_step][column]);// add squares to arraylist-------- 5
                             if(count == 5){
                                 // game is over, stop this process immediatelly
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 4");
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
                                 break ;
                             }
                         }
@@ -245,7 +269,9 @@ ONLY for USER vs USER
 
                 //code to check if it is aligned diagonally - right
                 if(!is_morpion){
+                    winning_square.clear(); // clear to make sure array doesn't contain any elements ---------- 1
                     count = 1;
+                    winning_square.add(gridview[row][column]); // add the first one by default --------------- 2
                     int row_step = row ;
                     int column_step = column ;
                     while(not_done_checking_diagonally_up_right){
@@ -253,8 +279,10 @@ ONLY for USER vs USER
                         column_step--;
                         if( (row_step <= 9 && column_step >= 0) && gridview[row_step][column_step].state == side){
                             count++ ;
+                            winning_square.add(gridview[row_step][column_step]);// add squares to arraylist-------- 3
                             if(count == 5){
                                 is_morpion = true ;
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
                                 System.out.println("ok it is Morpion here 5");
                                 break ;
                             }
@@ -270,12 +298,14 @@ ONLY for USER vs USER
                     while(not_done_checking_diagonally_up_left){
                         row_step-- ;
                         column_step++;
-                        if(row_step >= 0 && column_step <= 9 && gridview[row_step][column].state == side){
+                        if(row_step >= 0 && column_step <= 9 && gridview[row_step][column_step].state == side){
                             count++ ;
+                            winning_square.add(gridview[row_step][column_step]);// add squares to arraylist-------- 5
                             if(count == 5){
                                 // game is over, stop this process immediatelly
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 6");
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
                                 break ;
                             }
                         }
@@ -289,16 +319,21 @@ ONLY for USER vs USER
 
                 //code to check if it is aligned diagonally - left
                 if(!is_morpion){
+                    winning_square.clear(); // clear to make sure array doesn't contain any elements ---------- 1
                     count = 1;
+                    winning_square.add(gridview[row][column]); // add the first one by default --------------- 2
                     int row_step = row ;
                     int column_step = column ;
                     while(not_done_checking_diagonally_down_right){
                         row_step++;
                         column_step++;
+
                         if( (row_step <= 9 && column_step <= 9) && gridview[row_step][column_step].state == side){
                             count++ ;
+                            winning_square.add(gridview[row_step][column_step]);// add squares to arraylist-------- 3
                             if(count == 5){
                                 is_morpion = true ;
+                                squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
                                 System.out.println("ok it is Morpion here 7");
                                 break ;
                             }
@@ -318,9 +353,11 @@ ONLY for USER vs USER
                             // System.out.println("the row_step " + row_step + "the column_step " + column_step);
                             if(gridview[row_step][column_step].state == side){
                                 count++ ;
+                                winning_square.add(gridview[row_step][column_step]);// add squares to arraylist-------- 5
                                 if(count == 5){
                                     // game is over, stop this process immediatelly
                                     is_morpion = true ;
+                                    squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
                                     System.out.println("ok it is Morpion here 8");
                                     break ;
                                 }
@@ -389,4 +426,45 @@ ONLY for USER vs USER
         return result ;
     }
 
+    /*
+    This method applies particular properties to Squares, which contributes to the winning strike
+    */
+    public static void squareWinAnimation(final ArrayList<Square> winning_squares, Activity act){
+        // set background to a particular color
+        act.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for(Square p : winning_squares){
+
+                    p.setBackgroundColor(Color.parseColor("#8BC34A"));
+                }
+            }
+        });
+
+
+    }
+    /*
+    This method will restart the game when called
+    */
+
+    public static void restart(){
+        // need to clean gridview
+        for(int i = 0; i < gridview.length ; i++){
+            for(int j = 0; j <gridview[i].length; j++ ){
+                gridview[i][j].setState(0);
+            }
+        }
+
+        //Set turn to first user
+        current_player = 1 ;
+    }
+
+    /*
+   This method will restart the game and bring user back to Main Menu when called
+   */
+    public static void backToMainMenu(){
+
+    }
+
 }
+

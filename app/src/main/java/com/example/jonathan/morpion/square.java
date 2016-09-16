@@ -1,7 +1,11 @@
 package com.example.jonathan.morpion;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -48,17 +52,23 @@ public class Square extends View {
 
 
     @Override
+    @TargetApi(Build.VERSION_CODES.M)
     public boolean onTouchEvent(MotionEvent e) {
         if(!this.is_tapped){
             int player = Game_Fragment.current_player ;
             if(e.getAction() == MotionEvent.ACTION_DOWN){
                 if(player == 1){
-                    this.setBackgroundColor(Color.BLUE);
+
+                    //this.setBackgroundResource(R.drawable.ic_game_cross);
+                    Drawable im = getResources().getDrawable(R.drawable.ic_game_cross, null) ;
+                    this.setForeground(im);
                     this.setState(1);
                     Game_Fragment.current_player = 2 ;
                 }
                 else{
-                    this.setBackgroundColor(Color.GREEN);
+                    //this.setBackgroundResource(R.drawable.ic_game_circle);
+                    Drawable im = getResources().getDrawable(R.drawable.ic_game_circle, null) ;
+                    this.setForeground(im);
                     this.setState(2);
                     Game_Fragment.current_player = 1 ;
                 }
