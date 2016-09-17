@@ -75,50 +75,7 @@ public class Game_Activity extends AppCompatActivity
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.restart) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this) ;
-            dialog.setTitle("Restart");
-            dialog.setMessage("Are sure you want to restart the game");
-            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do restart here
-                }
-            });
-            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do Nothing
-                }
-            });
-            dialog.show() ;
-
-        }
-        else if (id == R.id.undo){
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this) ;
-            dialog.setTitle("Undo");
-            dialog.setMessage("Are sure you want to undo");
-            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do Undo`
-                }
-            });
-            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do Nothing
-                }
-            });
-            dialog.show() ;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

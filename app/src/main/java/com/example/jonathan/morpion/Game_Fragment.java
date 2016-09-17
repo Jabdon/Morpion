@@ -45,7 +45,6 @@ public class Game_Fragment extends Fragment {
     public static ImageView animation_for_player2 ;
     public static Context context;
     public static FragmentActivity activity ;
-    private Menu menu;
 
 
     public Game_Fragment() {
@@ -88,18 +87,21 @@ public class Game_Fragment extends Fragment {
 This method will handle items selected on toolbar
 */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.restart) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
             dialog.setTitle("Restart");
             dialog.setMessage("Are sure you want to restart the game");
             dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Do restart here
+                    restart();
                 }
             });
             dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -107,10 +109,27 @@ This method will handle items selected on toolbar
                     // Do Nothing
                 }
             });
-            dialog.show();
+            dialog.show() ;
 
         }
-        return super.onOptionsItemSelected(item) ;
+        else if (id == R.id.undo){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+            dialog.setTitle("Undo");
+            dialog.setMessage("Are sure you want to undo");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Undo`
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            dialog.show() ;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -243,7 +262,6 @@ ONLY for USER vs USER
                         }
 
                     }
-                    System.out.println("the row is " + row + " And the column " + column + " with state " + side);
                     while(not_done_checking_horizontally_left){
                         column_step-- ;
                         if(column_step >= 0 && gridview[row][column_step].state == side){
@@ -497,7 +515,7 @@ ONLY for USER vs USER
         // need to clean gridview
         for(int i = 0; i < gridview.length ; i++){
             for(int j = 0; j <gridview[i].length; j++ ){
-                gridview[i][j].setState(0);
+                gridview[i][j].reInitState() ;
             }
         }
 
