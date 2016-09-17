@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.jonathan.morpion.game_screen_with_nav"
+    tools:context=".Game_Activity"
     tools:showIn="@layout/app_bar_game_screen_with_nav"
     android:id="@+id/Game_screen_wrapper">
 

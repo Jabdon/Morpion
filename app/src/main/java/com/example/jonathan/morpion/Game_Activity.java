@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class game_screen_with_nav extends AppCompatActivity
+public class Game_Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 

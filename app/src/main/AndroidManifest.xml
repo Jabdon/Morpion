@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".option_screen"
+            android:name=".Options_Activity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,16 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".enter_name_screen"
+            android:name=".Enter_Name_Activity"
             android:label="@string/title_activity_enter_name_screen"
-            android:parentActivityName=".option_screen"
+            android:parentActivityName=".Options_Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.jonathan.morpion.option_screen" />
+                android:value=".Options_Activity" />
         </activity>
         <activity
-            android:name=".game_screen_with_nav"
+            android:name=".Game_Activity"
             android:label="@string/title_activity_game_screen_with_nav"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>

@@ -2,8 +2,6 @@ package com.example.jonathan.morpion;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class option_screen extends AppCompatActivity {
+public class Options_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +42,12 @@ public class option_screen extends AppCompatActivity {
     }
 
     public void userVsUserButtonHandler(View view) {
-        Intent intent = new Intent(this, enter_name_screen.class);
+        Intent intent = new Intent(this, Enter_Name_Activity.class);
         startActivity(intent);
     }
 
     public void userVsCPUButtonHandler(View view) {
-        Toast.makeText(option_screen.this, "This option is not available yet", Toast.LENGTH_LONG).show();
+        Toast.makeText(Options_Activity.this, "This option is not available yet", Toast.LENGTH_LONG).show();
 
     }
 }

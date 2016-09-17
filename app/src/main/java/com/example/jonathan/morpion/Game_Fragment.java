@@ -6,18 +6,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -175,8 +171,8 @@ ONLY for USER vs USER
         player2_linearlayout_horizontal.addView(sqr_player_2, 0);
         TextView player_name_1 = (TextView) view.findViewById(R.id.player_name_1) ;
         TextView player_name_2 = (TextView) view.findViewById(R.id.player_name_2) ;
-        player_name_1.setText( enter_name_screen.name1);
-        player_name_2.setText(enter_name_screen.name2);
+        player_name_1.setText( Enter_Name_Activity.name1);
+        player_name_2.setText(Enter_Name_Activity.name2);
     }
 
     /*
