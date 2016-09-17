@@ -4,6 +4,7 @@ package com.example.jonathan.morpion;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,10 +14,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -43,6 +49,7 @@ public class Game_Fragment extends Fragment {
     public static ImageView animation_for_player2 ;
     public static Context context;
     public static FragmentActivity activity ;
+    private Menu menu;
 
 
     public Game_Fragment() {
@@ -53,6 +60,9 @@ public class Game_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //add menu
+        setHasOptionsMenu(true);
+
         // Inflate the layout for this fragment
         View root_fragment_game_view = inflater.inflate(R.layout.fragment_game_, container, false);
         context = this.getContext();
@@ -67,8 +77,46 @@ public class Game_Fragment extends Fragment {
         player_view_2.addView(animation_for_player2);
         animationTurn(current_player);
 
+
         return root_fragment_game_view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.game_screen_with_nav, menu);
+    }
+
+
+    /*
+This method will handle items selected on toolbar
+*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.restart) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            dialog.setTitle("Restart");
+            dialog.setMessage("Are sure you want to restart the game");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do restart here
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            dialog.show();
+
+        }
+        return super.onOptionsItemSelected(item) ;
+    }
+
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void createGridsheet(Square[][] matrix, View view){
@@ -443,10 +491,12 @@ ONLY for USER vs USER
 
 
     }
+
+
+
     /*
     This method will restart the game when called
     */
-
     public static void restart(){
         // need to clean gridview
         for(int i = 0; i < gridview.length ; i++){
@@ -458,6 +508,8 @@ ONLY for USER vs USER
         //Set turn to first user
         current_player = 1 ;
     }
+
+
 
     /*
    This method will restart the game and bring user back to Main Menu when called
