@@ -45,6 +45,7 @@ public class Game_Fragment extends Fragment {
     public static ImageView animation_for_player2 ;
     public static Context context;
     public static FragmentActivity activity ;
+    public static final  ArrayList<Square> winning_square = new ArrayList<Square>() ;
 
 
     public Game_Fragment() {
@@ -174,20 +175,33 @@ ONLY for USER vs USER
  */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void userLabelInfo(View view){
+        ImageView iconViewPlayer1 = new ImageView(this.getContext());
+        ImageView iconViewPlayer2 = new ImageView(this.getContext());
+
         Square sqr_player_1 = new Square(this.getContext()) ;
         Square sqr_player_2 = new Square(this.getContext()) ;
         GradientDrawable gd = new GradientDrawable() ;
         gd.setStroke(1, Color.BLACK);
         LinearLayout.LayoutParams sqrlayout = new LinearLayout.LayoutParams(dpToPx(28), dpToPx(28));
-        sqrlayout.setMargins(dpToPx(0), dpToPx(2), dpToPx(10), dpToPx(2) );
+        sqrlayout.setMargins(dpToPx(4), dpToPx(2), dpToPx(10), dpToPx(2) );
         sqr_player_1.setLayoutParams(sqrlayout);
         sqr_player_2.setLayoutParams(sqrlayout);
+
+        iconViewPlayer1.setLayoutParams(sqrlayout);
+        iconViewPlayer2.setLayoutParams(sqrlayout);
+        iconViewPlayer1.setImageResource(R.drawable.ic_game_cross);
+        iconViewPlayer2.setImageResource(R.drawable.ic_game_circle);
+
+        /*
         sqr_player_1.setBackground(gd);
-        sqr_player_2.setBackground(gd) ;
+        sqr_player_2.setBackground(gd);
+        */
         LinearLayout player1_linearlayout_horizontal = (LinearLayout) view.findViewById(R.id.gamescreen_player1_container);
         LinearLayout player2_linearlayout_horizontal = (LinearLayout) view.findViewById(R.id.gamescreen_player2_container);
-        player1_linearlayout_horizontal.addView(sqr_player_1, 0);
-        player2_linearlayout_horizontal.addView(sqr_player_2, 0);
+
+
+        player1_linearlayout_horizontal.addView(iconViewPlayer1, 0);
+        player2_linearlayout_horizontal.addView(iconViewPlayer2, 0);
         TextView player_name_1 = (TextView) view.findViewById(R.id.player_name_1) ;
         TextView player_name_2 = (TextView) view.findViewById(R.id.player_name_2) ;
         player_name_1.setText( Enter_Name_Activity.name1);
@@ -219,7 +233,7 @@ ONLY for USER vs USER
     public static boolean isMorpion( final int row, final int column, final int side){
 
         //This array will keep track of the winning square pieces
-        final ArrayList<Square> winning_square = new ArrayList<Square>() ;
+
 
         animationTurn(current_player);
         Thread thread = new Thread(new Runnable() {
@@ -499,6 +513,9 @@ ONLY for USER vs USER
                 for(Square p : winning_squares){
 
                     p.setBackgroundColor(Color.parseColor("#8BC34A"));
+                    Animation ani = AnimationUtils.loadAnimation(context,R.anim.blink );
+                    p.startAnimation(ani);
+
                 }
             }
         });
@@ -512,6 +529,15 @@ ONLY for USER vs USER
     This method will restart the game when called
     */
     public static void restart(){
+
+        // clear winning animation if there is a win
+        if(is_morpion){
+            for(Square p : winning_square){
+                p.clearAnimation();
+            }
+        }
+
+
         // need to clean gridview
         for(int i = 0; i < gridview.length ; i++){
             for(int j = 0; j <gridview[i].length; j++ ){
@@ -521,6 +547,7 @@ ONLY for USER vs USER
 
         //Set turn to first user
         current_player = 1 ;
+        is_morpion = false ;
     }
 
 

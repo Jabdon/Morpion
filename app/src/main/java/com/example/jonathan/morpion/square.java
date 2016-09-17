@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,10 +73,12 @@ public class Square extends View {
                     this.setState(2);
                     Game_Fragment.current_player = 1 ;
                 }
+
+                this.is_tapped = true ;
+                Game_Fragment.isMorpion(this.row_position, this.column_position, this.state);
+                //System.out.println(game_screen.thread_morpion.getState());
             }
-            this.is_tapped = true ;
-            Game_Fragment.isMorpion(this.row_position, this.column_position, this.state);
-                    //System.out.println(game_screen.thread_morpion.getState());
+
 
 
         }
@@ -83,5 +86,26 @@ public class Square extends View {
         return true ;
     }
 
+    /*
+        This method brings this view or square to original state
+     */
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public boolean reInitState(){
+        //remove foreground image
+        this.setForeground(null);
+        // reset state
+        setState(0);
+        //make it tappable again
+        is_tapped = false ;
+
+        /*Redraw the background to init color
+        When a user wins, square color changes, therefore we need to make sure that this method redraw everything from scrath
+         */
+        GradientDrawable gd = new GradientDrawable() ;
+        gd.setColor(Color.rgb(218, 218, 218));
+        setBackground(gd);
+        return true;
+    }
 
 }
