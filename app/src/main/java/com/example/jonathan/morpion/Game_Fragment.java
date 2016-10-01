@@ -46,6 +46,7 @@ public class Game_Fragment extends Fragment {
     public static Context context;
     public static FragmentActivity activity ;
     public static final  ArrayList<Square> winning_square = new ArrayList<Square>() ;
+    public static int square_remainder = 100 ; // the amount of square created
 
 
     public Game_Fragment() {
@@ -232,8 +233,8 @@ ONLY for USER vs USER
 
     public static boolean isMorpion( final int row, final int column, final int side){
 
-        //This array will keep track of the winning square pieces
-
+        //keep track of remainding square
+        square_remainder-- ;
 
         animationTurn(current_player);
         Thread thread = new Thread(new Runnable() {
@@ -266,6 +267,7 @@ ONLY for USER vs USER
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 1");
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
+                                triggerWinningDialogBox(side, 0);
                                 break ;
                             }
                         }
@@ -286,6 +288,7 @@ ONLY for USER vs USER
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 2");
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
+                                triggerWinningDialogBox(side, 0);
                                 break ;
                             }
                         }
@@ -312,6 +315,7 @@ ONLY for USER vs USER
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 3");
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
+                                triggerWinningDialogBox(side, 0);
                                 break ;
                             }
                         }
@@ -332,6 +336,7 @@ ONLY for USER vs USER
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 4");
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
+                                triggerWinningDialogBox(side, 0);
                                 break ;
                             }
                         }
@@ -359,6 +364,7 @@ ONLY for USER vs USER
                             if(count == 5){
                                 is_morpion = true ;
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
+                                triggerWinningDialogBox(side, 0);
                                 System.out.println("ok it is Morpion here 5");
                                 break ;
                             }
@@ -382,6 +388,7 @@ ONLY for USER vs USER
                                 is_morpion = true ;
                                 System.out.println("ok it is Morpion here 6");
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
+                                triggerWinningDialogBox(side, 0);
                                 break ;
                             }
                         }
@@ -410,6 +417,7 @@ ONLY for USER vs USER
                             if(count == 5){
                                 is_morpion = true ;
                                 squareWinAnimation(winning_square, activity); //paint winning squares--------- 4
+                                triggerWinningDialogBox(side, 0);
                                 System.out.println("ok it is Morpion here 7");
                                 break ;
                             }
@@ -434,6 +442,7 @@ ONLY for USER vs USER
                                     // game is over, stop this process immediatelly
                                     is_morpion = true ;
                                     squareWinAnimation(winning_square, activity); //paint winning squares--------- 6
+                                    triggerWinningDialogBox(side, 0);
                                     System.out.println("ok it is Morpion here 8");
                                     break ;
                                 }
@@ -448,13 +457,14 @@ ONLY for USER vs USER
                     }
                 }
             }
+
         });
         thread.start();
 
-
-
-
-
+        //check if it's a draw
+        if(square_remainder <= 0){
+            triggerWinningDialogBox(Integer.parseInt(null), 1);
+        }
 
 
         return is_morpion ;
@@ -521,6 +531,7 @@ ONLY for USER vs USER
         });
 
 
+
     }
 
 
@@ -548,6 +559,7 @@ ONLY for USER vs USER
         //Set turn to first user
         current_player = 1 ;
         is_morpion = false ;
+        square_remainder = 100 ;
     }
 
 
@@ -556,6 +568,75 @@ ONLY for USER vs USER
    This method will restart the game and bring user back to Main Menu when called
    */
     public static void backToMainMenu(){
+
+    }
+
+    /*
+        This method will trigger a dialog box with content based on game's conclusion outcome
+        game_status : 1 means that there is a winner
+                      2 means that it is a draw
+
+        player : 1 means that player one is the winner
+               : 2 means that player two is the winner
+     */
+    public static void triggerWinningDialogBox(int player, int game_status){
+        // Find the name of winner
+        CharSequence name = "" ;
+        if(player == 1){
+            name = Enter_Name_Activity.name1 ;
+        }
+        else if(player == 2) {
+            name = Enter_Name_Activity.name2 ;
+        }
+        //
+
+        if(game_status == 0){
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+            dialog.setTitle("We have a winner");
+            dialog.setIcon(R.drawable.trophy);
+            dialog.setMessage("Congratulations " + name + "\n" +"You won!");
+            dialog.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do restart here
+                    restart();
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.show() ;
+                }
+            });
+
+        }
+        else if (game_status == 1){
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+            dialog.setTitle("It's a draw");
+            dialog.setIcon(R.drawable.question_mark);
+            dialog.setMessage("Tough game, Rematch?");
+            dialog.setPositiveButton("Play New game", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do restart here
+                    restart();
+                }
+            });
+            dialog.setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.show() ;
+                }
+            });
+        }
 
     }
 

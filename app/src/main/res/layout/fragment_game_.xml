@@ -39,6 +39,7 @@
             <LinearLayout
                 android:id="@+id/gamescreen_player1_container"
                 android:orientation="horizontal"
+                android:layout_marginRight="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -51,6 +52,7 @@
 
             <LinearLayout
                 android:id="@+id/gamescreen_player2_container"
+                android:layout_marginRight="4dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
