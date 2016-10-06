@@ -10,17 +10,21 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
@@ -609,7 +613,13 @@ ONLY for USER vs USER
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.show() ;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            dialog.show() ;
+                        }
+                    }, 2000); // 2000 milliseconds delay
+
                 }
             });
 
@@ -633,7 +643,12 @@ ONLY for USER vs USER
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.show() ;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            dialog.show() ;
+                        }
+                    }, 2000); // 2000 milliseconds delay
                 }
             });
         }

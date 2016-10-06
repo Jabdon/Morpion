@@ -55,7 +55,7 @@ public class Square extends View {
     @Override
     @TargetApi(Build.VERSION_CODES.M)
     public boolean onTouchEvent(MotionEvent e) {
-        if(!this.is_tapped){
+        if(!this.is_tapped && !Game_Fragment.is_morpion){
             int player = Game_Fragment.current_player ;
             if(e.getAction() == MotionEvent.ACTION_DOWN){
                 if(player == 1){
