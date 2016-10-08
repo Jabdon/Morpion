@@ -437,9 +437,8 @@ ONLY for USER vs USER
                     while(not_done_checking_diagonally_down_left){
                         row_step-- ;
                         column_step--;
-                        if((row_step >=0 && column_step >=0)){
+                        if((row_step >=0 && column_step >=0) && gridview[row_step][column_step].state == side){
                             // System.out.println("the row_step " + row_step + "the column_step " + column_step);
-                            if(gridview[row_step][column_step].state == side){
                                 count++ ;
                                 winning_square.add(gridview[row_step][column_step]);// add squares to arraylist-------- 5
                                 if(count == 5){
@@ -450,8 +449,6 @@ ONLY for USER vs USER
                                     System.out.println("ok it is Morpion here 8");
                                     break ;
                                 }
-                            }
-
                         }
                         else{
                             // stop this loop and go check vertically
