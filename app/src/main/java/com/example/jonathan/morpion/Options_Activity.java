@@ -34,7 +34,7 @@ public class Options_Activity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.scores) {
             return true;
         }
 

@@ -75,7 +75,7 @@
                     android:background="@android:color/transparent"
                     android:id="@+id/editText1"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:hint="Enter player name"
                     android:text="@string/player_1" />
             </LinearLayout>
@@ -109,7 +109,7 @@
                     android:background="@android:color/transparent"
                     android:id="@+id/editText2"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:hint="Enter player name"
                     android:text="@string/player_2" />
             </LinearLayout>

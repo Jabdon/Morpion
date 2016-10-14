@@ -51,6 +51,8 @@ public class Game_Fragment extends Fragment {
     public static FragmentActivity activity ;
     public static final  ArrayList<Square> winning_square = new ArrayList<Square>() ;
     public static int square_remainder = 100 ; // the amount of square created
+    public static int Player_score_1 = 0;
+    public static int Player_score_2 = 0 ;
 
 
     public Game_Fragment() {
@@ -585,9 +587,13 @@ ONLY for USER vs USER
         CharSequence name = "" ;
         if(player == 1){
             name = Enter_Name_Activity.name1 ;
+            // increment count for player 1
+            Player_score_1 ++ ;
         }
         else if(player == 2) {
             name = Enter_Name_Activity.name2 ;
+            // increment count for player 2
+            Player_score_2 ++ ;
         }
         //
 
@@ -649,6 +655,13 @@ ONLY for USER vs USER
                 }
             });
         }
+
+    }
+    /*
+        This method will show user the current stat of the 2 players
+     */
+
+    public static void showStat(){
 
     }
 
