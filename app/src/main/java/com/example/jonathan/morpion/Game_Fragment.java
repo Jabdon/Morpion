@@ -464,7 +464,7 @@ ONLY for USER vs USER
 
         //check if it's a draw
         if(square_remainder <= 0){
-            triggerWinningDialogBox(Integer.parseInt(null), 1);
+            triggerWinningDialogBox(side, 1);
         }
 
 
