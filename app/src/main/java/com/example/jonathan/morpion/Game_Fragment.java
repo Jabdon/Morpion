@@ -31,8 +31,10 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 /**
@@ -58,9 +60,11 @@ public class Game_Fragment extends Fragment {
     //dialog view
     public TextView Player1_score_view ;
     public TextView Player2_score_view ;
-
     public TextView Player1_name_view ;
     public TextView Player2_name_view ;
+
+    // The last square to be touched
+    public static Stack<Square> previous = new Stack<>();
 
 
     public Game_Fragment() {
@@ -133,20 +137,32 @@ This method will handle items selected on toolbar
 
         }
         else if (id == R.id.undo){
-            AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
-            dialog.setTitle("Undo");
-            dialog.setMessage("Are sure you want to undo");
-            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do Undo`
-                }
-            });
-            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do Nothing
-                }
-            });
-            dialog.show() ;
+            if(previous.empty()){
+                Toast.makeText(context, "Unable to undo", Toast.LENGTH_LONG).show();
+            }
+            else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+                dialog.setTitle("Undo");
+                dialog.setMessage("Are sure you want to undo " + getPreviousPlayerName() + "'s move");
+                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        previous.pop().reInitState() ;
+                        square_remainder++ ;
+                        changeTurn();
+
+
+
+                    }
+                });
+                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do Nothing
+                    }
+                });
+                dialog.show() ;
+
+            }
         }
 
         else if (id == R.id.scores){
@@ -699,12 +715,23 @@ ONLY for USER vs USER
         }
 
     }
-    /*
-        This method will show user the current stat of the 2 players
-     */
 
-    public static void showStat(){
+    public void changeTurn(){
+        if(current_player==1){
+            current_player = 2 ;
+        }
+        else{
+            current_player = 1;
+        }
+    }
 
+    public String getPreviousPlayerName(){
+        if(current_player ==1){
+            return String.valueOf(Enter_Name_Activity.name2)  ;
+        }
+        else{
+            return String.valueOf(Enter_Name_Activity.name1) ;
+        }
     }
 
 }

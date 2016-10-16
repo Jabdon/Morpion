@@ -10,6 +10,9 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * Created by owner on 7/18/16.
  */
@@ -77,6 +80,24 @@ public class Square extends View {
                 this.is_tapped = true ;
                 Game_Fragment.isMorpion(this.row_position, this.column_position, this.state);
                 //System.out.println(game_screen.thread_morpion.getState());
+
+                // register the previous square to be touched
+                if(!Game_Fragment.previous.isEmpty() && Game_Fragment.previous.size() == 4){
+                    Stack<Square> s = new Stack<>();
+                    for(int i = 0; i < 3; i++){
+                        s.push(Game_Fragment.previous.pop());
+                    }
+                    //Empty stack
+                    Game_Fragment.previous.empty();
+
+                    for(int i = 0; i < 3; i++){
+                        Game_Fragment.previous.push(s.pop());
+                    }
+                    Game_Fragment.previous.push(this) ;
+                }
+                else {
+                    Game_Fragment.previous.push(this) ;
+                }
             }
 
 
