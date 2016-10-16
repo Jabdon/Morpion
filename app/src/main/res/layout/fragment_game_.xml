@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.jonathan.morpion.Game_Fragment"
     android:id="@+id/Fragment_Game">
+
     
     <LinearLayout
         android:id="@+id/game_container"

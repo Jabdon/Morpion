@@ -53,6 +53,14 @@ public class Game_Fragment extends Fragment {
     public static int square_remainder = 100 ; // the amount of square created
     public static int Player_score_1 = 0;
     public static int Player_score_2 = 0 ;
+    public static View root_fragment_game_view ;
+
+    //dialog view
+    public TextView Player1_score_view ;
+    public TextView Player2_score_view ;
+
+    public TextView Player1_name_view ;
+    public TextView Player2_name_view ;
 
 
     public Game_Fragment() {
@@ -63,15 +71,19 @@ public class Game_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //add menu
-        setHasOptionsMenu(true);
+
 
         // Inflate the layout for this fragment
-        View root_fragment_game_view = inflater.inflate(R.layout.fragment_game_, container, false);
+        root_fragment_game_view = inflater.inflate(R.layout.fragment_game_, container, false);
         context = this.getContext();
         activity = this.getActivity() ;
         player_view_1 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player1_container);
         player_view_2 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player2_container);
+
+
+        //add menu
+        setHasOptionsMenu(true);
+
         createGridsheet(gridview,root_fragment_game_view );
         userLabelInfo(root_fragment_game_view) ;
         animation_for_player1 = new ImageView(this.getContext());
@@ -137,6 +149,36 @@ This method will handle items selected on toolbar
             dialog.show() ;
         }
 
+        else if (id == R.id.scores){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+            LayoutInflater inflater = this.getLayoutInflater(null);
+            View dialogView = inflater.inflate(R.layout.score_dialog_layout, null);
+            //
+            Player1_name_view = (TextView) dialogView.findViewById(R.id.dialo_player1_name);
+            Player2_name_view = (TextView) dialogView.findViewById(R.id.dialo_player2_name);
+
+            //
+            Player1_score_view = (TextView) dialogView.findViewById(R.id.dialog_player1_score);
+            Player2_score_view = (TextView) dialogView.findViewById(R.id.dialog_player2_score);
+
+            // set names in dialog
+            Player1_name_view.setText(Enter_Name_Activity.name1);
+            Player2_name_view.setText(Enter_Name_Activity.name2);
+
+            // set score in dialog
+            Player1_score_view.setText(String.valueOf(Player_score_1));
+            Player2_score_view.setText(String.valueOf(Player_score_2));
+            dialog.setView(dialogView);
+
+
+
+            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Undo`
+                }
+            });
+            dialog.show() ;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -211,7 +253,7 @@ ONLY for USER vs USER
         player2_linearlayout_horizontal.addView(iconViewPlayer2, 0);
         TextView player_name_1 = (TextView) view.findViewById(R.id.player_name_1) ;
         TextView player_name_2 = (TextView) view.findViewById(R.id.player_name_2) ;
-        player_name_1.setText( Enter_Name_Activity.name1);
+        player_name_1.setText(Enter_Name_Activity.name1);
         player_name_2.setText(Enter_Name_Activity.name2);
     }
 

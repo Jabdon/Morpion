@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:src="@drawable/trophy"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_weight="10"
+        android:id="@+id/imageView2"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/dialog_container_title"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:layout_height="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Score Stats"
+            android:id="@+id/dialog_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_main_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="80"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/column1"
+            android:orientation="vertical"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Jonathan"
+                android:id="@+id/dialo_player1_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="center_horizontal"
+                android:text="6"
+                android:id="@+id/dialog_player1_score" />
+
+            <ImageView
+                android:src="@drawable/ic_game_cross"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/column2"
+            android:orientation="vertical"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abdon"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/dialo_player2_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="5"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/dialog_player2_score" />
+
+            <ImageView
+                android:src="@drawable/ic_game_circle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
