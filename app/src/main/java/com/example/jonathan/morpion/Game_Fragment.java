@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,8 +48,6 @@ public class Game_Fragment extends Fragment {
     public static boolean is_morpion = false ;
     public static LinearLayout player_view_1 ;
     public static LinearLayout player_view_2 ;
-    public static ImageView animation_for_player1 ;
-    public static ImageView animation_for_player2 ;
     public static Context context;
     public static FragmentActivity activity ;
     public static final  ArrayList<Square> winning_square = new ArrayList<Square>() ;
@@ -90,10 +89,7 @@ public class Game_Fragment extends Fragment {
 
         createGridsheet(gridview,root_fragment_game_view );
         userLabelInfo(root_fragment_game_view) ;
-        animation_for_player1 = new ImageView(this.getContext());
-        player_view_1.addView(animation_for_player1);
-        animation_for_player2 = new ImageView(this.getContext());
-        player_view_2.addView(animation_for_player2);
+
         animationTurn(current_player);
 
 
@@ -137,32 +133,37 @@ This method will handle items selected on toolbar
 
         }
         else if (id == R.id.undo){
-            if(previous.empty()){
-                Toast.makeText(context, "Unable to undo", Toast.LENGTH_LONG).show();
+
+            if(!is_morpion){
+                if(previous.empty()){
+                    Toast.makeText(context, "Unable to undo", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
+                    dialog.setTitle("Undo");
+                    dialog.setMessage("Are sure you want to undo " + getPreviousPlayerName() + "'s move");
+                    dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            previous.pop().reInitState() ;
+                            square_remainder++ ;
+                            changeTurn();
+                            animationTurn(current_player);
+
+
+
+                        }
+                    });
+                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do Nothing
+                        }
+                    });
+                    dialog.show() ;
+
+                }
             }
-            else {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context) ;
-                dialog.setTitle("Undo");
-                dialog.setMessage("Are sure you want to undo " + getPreviousPlayerName() + "'s move");
-                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
 
-                        previous.pop().reInitState() ;
-                        square_remainder++ ;
-                        changeTurn();
-
-
-
-                    }
-                });
-                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do Nothing
-                    }
-                });
-                dialog.show() ;
-
-            }
         }
 
         else if (id == R.id.scores){
@@ -534,29 +535,27 @@ ONLY for USER vs USER
 
     @TargetApi(Build.VERSION_CODES.M)
     public static void animationTurn(int player){
-        // create imageview programatically
-        animation_for_player1.setImageResource(R.drawable.ic_animation_game);
-        animation_for_player2.setImageResource(R.drawable.ic_animation_game);
+        //
+        LinearLayout player1_text_container = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player1_container);
+        LinearLayout player2_text_container = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player2_container);
+
+        // Get the image containers at index 0
+        ImageView player1_icon = (ImageView) player1_text_container.getChildAt(0);
+        ImageView player2_icon = (ImageView) player2_text_container.getChildAt(0);
 
 
         //animation when is player one's turn
         if(player == 1){
             //remove from the other player
-            animation_for_player2.clearAnimation();
-            animation_for_player2.setVisibility(View.INVISIBLE);
-            //add it to here
-            animation_for_player1.setVisibility(View.VISIBLE);
+            player2_icon.clearAnimation();
             Animation ani = AnimationUtils.loadAnimation(context,R.anim.blink );
-            animation_for_player1.startAnimation(ani);
+            player1_icon.startAnimation(ani);
         }
         else if(player ==2){
             //remove from the other player
-            animation_for_player1.clearAnimation();
-            animation_for_player1.setVisibility(View.INVISIBLE);
-            //add it to here
-            animation_for_player2.setVisibility(View.VISIBLE);
+            player1_icon.clearAnimation();
             Animation ani = AnimationUtils.loadAnimation(context,R.anim.blink );
-            animation_for_player2.startAnimation(ani);
+            player2_icon.startAnimation(ani);
         }
         //animation when is player two's turn
     }
@@ -621,6 +620,7 @@ ONLY for USER vs USER
         current_player = 1 ;
         is_morpion = false ;
         square_remainder = 100 ;
+        animationTurn(current_player);
     }
 
 
