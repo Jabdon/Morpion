@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_action_game"
             android:title="Game" />
         <item
+            android:id="@+id/backToOption"
+            android:icon="@drawable/ic_action_game"
+            android:title="Back to Option" />
+        <item
             android:id="@+id/about"
             android:icon="@drawable/ic_action_about"
             android:title="About" />

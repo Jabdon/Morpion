@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -88,6 +89,28 @@ public class Game_Activity extends AppCompatActivity
             android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().hide(about_fragment).commit();
             manager.beginTransaction().show(game_fragment).commit() ;
+
+        }
+        else if(id==R.id.backToOption){
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this) ;
+            dialog.setTitle("Back To Option");
+            dialog.setMessage("Are sure you want to leave the game");
+            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Change To Option screen here
+                    game_fragment.reset();
+                    Intent intent = new Intent(getApplicationContext(), Options_Activity.class);
+                    startActivity(intent);
+
+                }
+            });
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do Nothing
+                }
+            });
+            dialog.show() ;
 
         }
         else if (id == R.id.about) {

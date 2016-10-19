@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -626,13 +627,6 @@ ONLY for USER vs USER
 
 
     /*
-   This method will restart the game and bring user back to Main Menu when called
-   */
-    public static void backToMainMenu(){
-
-    }
-
-    /*
         This method will trigger a dialog box with content based on game's conclusion outcome
         game_status : 1 means that there is a winner
                       2 means that it is a draw
@@ -733,6 +727,21 @@ ONLY for USER vs USER
             return String.valueOf(Enter_Name_Activity.name1) ;
         }
     }
+
+
+    public void reset(){
+
+        Square [][] gridview = new Square[10][10] ;
+         current_player = 1 ;
+          is_morpion = false ;
+         ArrayList<Square> winning_square = new ArrayList<Square>() ;
+         square_remainder = 100 ; // the amount of square created
+         Player_score_1 = 0;
+         Player_score_2 = 0 ;
+        // The last square to be touched
+        Stack<Square> previous = new Stack<>();
+    }
+
 
 }
 
