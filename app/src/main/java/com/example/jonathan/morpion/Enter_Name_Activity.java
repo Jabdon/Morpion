@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class Enter_Name_Activity extends AppCompatActivity {
     public static CharSequence name1 ;
     public static CharSequence name2 ;
-    public static int player_symbol1;
-    public static int player_symbol2;
+    public static int player_symbol1 = R.drawable.ic_game_cross ;
+    public static int player_symbol2 = R.drawable.ic_game_circle ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,18 +119,49 @@ public class Enter_Name_Activity extends AppCompatActivity {
 
                 if(sign == 0){
                     button.setImageResource(R.drawable.ic_game_cross);
+                    if(view.getId() == R.id.spinner1){
+                        player_symbol1 = R.drawable.ic_game_cross ;
+                    }
+                    else {
+                        player_symbol2 = R.drawable.ic_game_cross ;
+                    }
                 }
                 else if(sign == 1){
                     button.setImageResource(R.drawable.ic_game_circle);
+                    if(view.getId() == R.id.spinner1){
+                        player_symbol1 = R.drawable.ic_game_circle ;
+                    }
+                    else {
+                        player_symbol2 = R.drawable.ic_game_circle ;
+                    }
+
                 }
                 else if(sign == 2){
                     button.setImageResource(R.drawable.ic_action_loading);
+                    if(view.getId() == R.id.spinner1){
+                        player_symbol1 = R.drawable.ic_action_loading ;
+                    }
+                    else {
+                        player_symbol2 = R.drawable.ic_action_loading ;
+                    }
                 }
                 else if(sign == 3){
-                    button.setImageResource(R.drawable.ic_action_heart);
+                    button.setImageResource(R.drawable.ic_action_star);
+                    if(view.getId() == R.id.spinner1){
+                        player_symbol1 = R.drawable.ic_action_star ;
+                    }
+                    else {
+                        player_symbol2 = R.drawable.ic_action_star ;
+                    }
                 }
                 else if(sign == 4){
-                    button.setImageResource(R.drawable.ic_action_star);
+                    button.setImageResource(R.drawable.ic_action_heart);
+                    if(view.getId() == R.id.spinner1){
+                        player_symbol1 = R.drawable.ic_action_heart ;
+                    }
+                    else {
+                        player_symbol2 = R.drawable.ic_action_heart ;
+                    }
                 }
 
 

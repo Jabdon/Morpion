@@ -64,14 +64,14 @@ public class Square extends View {
                 if(player == 1){
 
                     //this.setBackgroundResource(R.drawable.ic_game_cross);
-                    Drawable im = getResources().getDrawable(R.drawable.ic_game_cross, null) ;
+                    Drawable im = getResources().getDrawable(Game_Fragment.sign1, null) ;
                     this.setForeground(im);
                     this.setState(1);
                     Game_Fragment.current_player = 2 ;
                 }
                 else{
                     //this.setBackgroundResource(R.drawable.ic_game_circle);
-                    Drawable im = getResources().getDrawable(R.drawable.ic_game_circle, null) ;
+                    Drawable im = getResources().getDrawable(Game_Fragment.sign2, null) ;
                     this.setForeground(im);
                     this.setState(2);
                     Game_Fragment.current_player = 1 ;

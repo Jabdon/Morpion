@@ -57,6 +57,9 @@ public class Game_Fragment extends Fragment {
     public static int Player_score_2 = 0 ;
     public static View root_fragment_game_view ;
 
+    public static int sign1 =  Enter_Name_Activity.player_symbol1;
+    public static int sign2 =Enter_Name_Activity.player_symbol2;
+
     //dialog view
     public TextView Player1_score_view ;
     public TextView Player2_score_view ;
@@ -83,6 +86,8 @@ public class Game_Fragment extends Fragment {
         activity = this.getActivity() ;
         player_view_1 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player1_container);
         player_view_2 = (LinearLayout) root_fragment_game_view.findViewById(R.id.gamescreen_player2_container);
+        sign1 =  Enter_Name_Activity.player_symbol1;
+        sign2 =Enter_Name_Activity.player_symbol2;
 
 
         //add menu
@@ -256,8 +261,8 @@ ONLY for USER vs USER
 
         iconViewPlayer1.setLayoutParams(sqrlayout);
         iconViewPlayer2.setLayoutParams(sqrlayout);
-        iconViewPlayer1.setImageResource(R.drawable.ic_game_cross);
-        iconViewPlayer2.setImageResource(R.drawable.ic_game_circle);
+        iconViewPlayer1.setImageResource(sign1);
+        iconViewPlayer2.setImageResource(sign2);
 
         /*
         sqr_player_1.setBackground(gd);
@@ -731,6 +736,8 @@ ONLY for USER vs USER
 
     public void reset(){
 
+        sign1 =  Enter_Name_Activity.player_symbol1;
+        sign2 =Enter_Name_Activity.player_symbol2;
         Square [][] gridview = new Square[10][10] ;
          current_player = 1 ;
           is_morpion = false ;
@@ -738,6 +745,7 @@ ONLY for USER vs USER
          square_remainder = 100 ; // the amount of square created
          Player_score_1 = 0;
          Player_score_2 = 0 ;
+
         // The last square to be touched
         Stack<Square> previous = new Stack<>();
     }
