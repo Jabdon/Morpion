@@ -39,6 +39,8 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
+
+
         <LinearLayout
             android:id="@+id/names_texfield_container"
             android:orientation="vertical"
@@ -47,12 +49,14 @@
             android:layout_height="244dp"
             android:weightSum="1">
 
+
             <LinearLayout
                 android:id="@+id/player1_frame"
                 android:orientation="horizontal"
                 android:background="#E2E2E2"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -68,7 +72,8 @@
                     android:id="@+id/user_icon1" />
 
                 <EditText
-                    android:layout_width="fill_parent"
+                    android:layout_weight="60"
+                    android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:gravity="center"
                     android:textColor="#AAAAAA"
@@ -78,6 +83,22 @@
                     android:inputType="textCapSentences"
                     android:hint="Enter player name"
                     android:text="@string/player_1" />
+
+                <LinearLayout
+                    android:layout_weight="20"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:onClick="selectSign"
+                        android:src="@drawable/ic_game_circle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/spinner1" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -85,8 +106,8 @@
                 android:orientation="horizontal"
                 android:background="#E2E2E2"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -102,7 +123,8 @@
                     android:id="@+id/user_icon2" />
 
                 <EditText
-                    android:layout_width="fill_parent"
+                    android:layout_weight="60"
+                    android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:gravity="center"
                     android:textColor="#AAAAAA"
@@ -112,7 +134,23 @@
                     android:inputType="textCapSentences"
                     android:hint="Enter player name"
                     android:text="@string/player_2" />
+
+                <LinearLayout
+                    android:layout_weight="20"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:onClick="selectSign"
+                        android:src="@drawable/ic_game_cross"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/spinner2" />
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
